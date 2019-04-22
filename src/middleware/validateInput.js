@@ -1,6 +1,12 @@
 import ErrorHandler from '../utils/errorHandler';
 
+/**
+ * @description validates users input
+ */
 const ValidateInputs = {
+  /**
+   * @description validates contact inputs
+   */
   contactInputValidation: (req, res, next) => {
     req.checkBody('name', 'name is required').trim().notEmpty();
     req.checkBody('phoneNumber', 'phone number is required').trim().notEmpty();
