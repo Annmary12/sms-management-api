@@ -1,0 +1,36 @@
+{
+  "name": "sms-management-api",
+  "version": "1.0.0",
+  "description": "SMS MANAGEMENT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel src -d dist",
+    "start": "npm build && node ./dist/bin/www.js",
+    "dev": "babel-node -- ./src/bin/www.js -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Annmary12/sms-management-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Annmary12/sms-management-api/issues"
+  },
+  "homepage": "https://github.com/Annmary12/sms-management-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.2",
+    "rimraf": "^2.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "babel-plugin-add-module-exports": "^1.0.2"
+  }
+}
