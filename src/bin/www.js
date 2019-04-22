@@ -7,7 +7,10 @@ dotenv.config();
 // Get port to listen on
 const port = process.env.PORT || 4200;
 
-mongoose.connect('mongodb://127.0.0.1:27017/sms', {
+// connection url
+const connectionUrl = process.env.NODE_ENV === 'test' ? process.env.DB_URL_TEST : process.env.DB_URL;
+
+mongoose.connect(connectionUrl, {
   useNewUrlParser: true
 });
 
