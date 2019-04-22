@@ -8,7 +8,7 @@ route.get('/', (req, res) => {
   res.json({message: 'Welcome to SMS Management API!!!'});
 })
 
-// route.use('/contacts', contactRoutes);
+route.use('/contacts', contactRoutes);
 // route.use('/sms', messageRoutes);
 
 export default route;
