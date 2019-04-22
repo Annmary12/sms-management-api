@@ -2,20 +2,20 @@ import mongoose, { Schema } from 'mongoose';
 
 const messageSchema = new Schema({
   receiver: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'contact'
   },
   sender: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'contact'
   },
   message: {
     type: String,
     required: true
   },
   status: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'status'
   }
 }, {
   timestamps: {
