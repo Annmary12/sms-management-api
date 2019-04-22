@@ -1,28 +1,22 @@
-import Express from "express";
-import Mongoose from "mongoose";
-import BodyParser from "body-parser";
-import cors from 'cors';
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+import app from '../app';
 
-const app = Express();
+dotenv.config();
 
-app.use(cors());
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
+// Get port to listen on
+const port = process.env.PORT || 4200;
 
-Mongoose.connect('mongodb://127.0.0.1:27017/sms', {
+mongoose.connect('mongodb://127.0.0.1:27017/sms', {
   useNewUrlParser: true
 });
 
-const connection = Mongoose.connection;
+const connection = mongoose.connection;
 
 connection.once('open', () => {
   console.log('MongoDb database connection established');
 })
 
-app.post("/person", async (request, response) => {
-  res.json('I am here===')
-});
-
-app.listen(3000, () => {
-    console.log("Listening at :3000...");
+app.listen(port, () => {
+    console.log(`Listening at :${port}...`);
 });
