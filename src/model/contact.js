@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-let contactSchema = new Schema({
+const contactSchema = new Schema({
   name: {
     type: String,
     required: true

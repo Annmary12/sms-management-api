@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-let messageSchema = new Schema({
+const messageSchema = new Schema({
   receiver: {
     type: String,
     required: true
