@@ -11,7 +11,8 @@ const port = process.env.PORT || 4200;
 const connectionUrl = process.env.NODE_ENV === 'test' ? process.env.DB_URL_TEST : process.env.DB_URL;
 
 mongoose.connect(connectionUrl, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 }, () => {
   console.log('MongoDb database connection established');
 });
