@@ -13,7 +13,7 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
 // routes
-app.use('api/v1', routes);
+app.use('/api/v1', routes);
 
 // setup default route
 app.use('*', (req, res, next) => {

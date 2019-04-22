@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { create } from '../controllers/ContactController';
+import ContactController from '../controllers/ContactController';
 
-const route = Router();
+// destructuring the methods
+const { create } = ContactController;
 
-route.post('/', create);
+const router = Router();
 
-export default route;
+router.post('/', create);
+
+export default router;
