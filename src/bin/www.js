@@ -12,13 +12,9 @@ const connectionUrl = process.env.NODE_ENV === 'test' ? process.env.DB_URL_TEST 
 
 mongoose.connect(connectionUrl, {
   useNewUrlParser: true
-});
-
-const connection = mongoose.connection;
-
-connection.once('open', () => {
+}, () => {
   console.log('MongoDb database connection established');
-})
+});
 
 app.listen(port, () => {
     console.log(`Listening at :${port}...`);
