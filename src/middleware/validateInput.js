@@ -1,5 +1,4 @@
 import ErrorHandler from '../utils/errorHandler';
-import { readSync } from 'fs';
 
 const ValidateInputs = {
   contactInputValidation: (req, res, next) => {
