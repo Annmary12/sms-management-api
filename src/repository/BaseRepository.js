@@ -20,12 +20,13 @@ class BaseRepository {
   /**
    * @description find a contact by field
    * @param {Object} Model
-   * @param {Object} option
+   * @param {Object} field
+   * @param {Object} value
    * @returns {Document} returns an array of object
    */
-  static async findByField(Model, option) {
+  static async findByField(Model, field, value) {
     try {
-      return await Model.findByField({option})
+      return await Model.find({[field] : value})
     } catch (error) {
       throw error
     }
