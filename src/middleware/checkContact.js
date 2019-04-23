@@ -3,9 +3,9 @@ import BaseRepository from '../repository/BaseRepository';
 
 /**
  * @description checks if contact exist
- * @param {Object} req request object
- * @param {Object} res response object
- * @param {Function} next middleware next
+ * @param {object} req request object
+ * @param {object} res response object
+ * @param {function} next middleware next
  *
  * @returns {json} returns error if contact exist
  */

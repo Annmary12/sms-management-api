@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
 
-const hasToken = (req, res, next) => {
+export const hasToken = (req, res, next) => {
   const bearerHeader = req.headers.authorization;
   if (bearerHeader) {
     req.token = bearerHeader;
     next();
+  } else {
+    return res.status(401).json({
+      message: 'Please, Kindly Signin Again'
+    });
   }
-  return res.status(401).json({
-    message: 'Please, Kindly Signin Again'
-  });
 }
 
 /**
@@ -19,11 +20,10 @@ const hasToken = (req, res, next) => {
  *
  * @param {function} next next function
  */
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
   const secret = process.env.JWT_SECRET_KEY;
-  const token = hasToken(req, res, next);
 
-  jwt.verify(token, secret, (err, authData) => {
+  jwt.verify(req.token, secret, (err, authData) => {
     if (err) {
       res.status(401).json({
         message: 'Please, Kindly Signin Again'
@@ -34,5 +34,3 @@ const verifyToken = (req, res, next) => {
   });
   next();
 }
-
-export default verifyToken;
