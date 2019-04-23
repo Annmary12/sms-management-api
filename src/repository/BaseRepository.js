@@ -5,8 +5,10 @@
 class BaseRepository {
   /**
    * @description creates a new document
+   *
    * @param {object} Model
    * @param {object} options
+   *
    * @returns {Document} returns a newly created document
    */
   static async create(Model, options) {
@@ -19,9 +21,11 @@ class BaseRepository {
 
   /**
    * @description find a document by field
+   *
    * @param {object} Model
    * @param {object} field
    * @param {object} value
+   *
    * @returns {Document} returns an array of object
    */
   static async findByField(Model, field, value) {
@@ -34,11 +38,31 @@ class BaseRepository {
 
   /**
    * @description finds all documents
+   *
    * @param {object} Model
+   * @param {object} options
+   *
+   * @returns {Document} returns an array of object
    */
   static async findAll(Model, options) {
     try {
       return Model.paginate({}, options);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @description finda a document by id
+   *
+   * @param {object} Model
+   * @param {string} id
+   *
+   * @returns {Document} returns one document
+   */
+  static async findById(Model, id) {
+    try {
+      return Model.findById(id);
     } catch (error) {
       throw error;
     }

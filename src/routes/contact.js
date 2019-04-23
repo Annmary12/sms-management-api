@@ -5,7 +5,7 @@ import checkContactExist from '../middleware/checkContact';
 import { hasToken, verifyToken } from '../middleware/auth';
 
 // destructuring the methods
-const { create, getAll } = ContactController;
+const { create, getAll, getOne } = ContactController;
 const { contactInputValidation } = ValidateInputs;
 
 const router = Router();
@@ -16,5 +16,6 @@ router.post('/', contactInputValidation, checkContactExist, create);
 router.use('/', hasToken, verifyToken);
 
 router.get('/', getAll);
+router.get('/:id', getOne);
 
 export default router;

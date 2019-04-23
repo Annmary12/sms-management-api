@@ -34,7 +34,7 @@ class ContactController {
    * @param {object} req request object
    * @param {object} res response object
    *
-   * @returns {json} status code, message and newly created contact
+   * @returns {json} status code, message and all contacts
    */
   static async getAll(req, res) {
     try {
@@ -47,6 +47,25 @@ class ContactController {
       return res.status(200).json(data);
     } catch (error) {
       return res.status(500).json(error);
+    }
+  }
+
+  /**
+   * @description get one contact
+   *
+   * @param {object} req request object
+   * @param {object} res response object
+   *
+   * @returns {json} status code and message
+   */
+  static async getOne(req, res) {
+    try {
+      const { id } = req.params;
+      const data = await BaseRepository.findById(Contact, id);
+
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: 'contact not found' });
     }
   }
 }
