@@ -36,9 +36,9 @@ class BaseRepository {
    * @description finds all documents
    * @param {object} Model
    */
-  static async findAll(Model) {
+  static async findAll(Model, options) {
     try {
-      return Model.find({});
+      return Model.paginate({}, options);
     } catch (error) {
       throw error;
     }
