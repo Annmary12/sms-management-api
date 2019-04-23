@@ -33,7 +33,7 @@ class BaseRepository {
   }
 
   /**
-   * @description finds all contacts
+   * @description finds all documents
    * @param {object} Model
    */
   static async findAll(Model) {

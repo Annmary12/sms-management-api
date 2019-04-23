@@ -4,11 +4,12 @@ import ValidateInputs from '../middleware/validateInput';
 import checkContactExist from '../middleware/checkContact';
 
 // destructuring the methods
-const { create } = ContactController;
+const { create, getAll } = ContactController;
 const { contactInputValidation } = ValidateInputs;
 
 const router = Router();
 
 router.post('/', contactInputValidation, checkContactExist, create);
+router.get('/', getAll);
 
 export default router;
