@@ -15,7 +15,7 @@ const checkContactExist = async (req, res, next) => {
   const contact = await BaseRepository.findByField(Contact, 'phoneNumber', phoneNumber);
 
   return contact.length
-  ? res.status(401).json({error: 'phone number is existing'})
+  ? res.status(401).json({error: 'phone number is already existing'})
   : next();
 }
 

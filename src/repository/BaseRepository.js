@@ -5,30 +5,42 @@
 class BaseRepository {
   /**
    * @description creates a new document
-   * @param {Object} Model
-   * @param {Object} options
+   * @param {object} Model
+   * @param {object} options
    * @returns {Document} returns a newly created document
    */
   static async create(Model, options) {
     try {
-      return await Model.create(options);
+      return Model.create(options);
     } catch(error) {
       throw error;
     }
   }
 
   /**
-   * @description find a contact by field
-   * @param {Object} Model
-   * @param {Object} field
-   * @param {Object} value
+   * @description find a document by field
+   * @param {object} Model
+   * @param {object} field
+   * @param {object} value
    * @returns {Document} returns an array of object
    */
   static async findByField(Model, field, value) {
     try {
-      return await Model.find({[field] : value})
+      return Model.find({[field] : value})
     } catch (error) {
       throw error
+    }
+  }
+
+  /**
+   * @description finds all contacts
+   * @param {object} Model
+   */
+  static async findAll(Model) {
+    try {
+      return Model.find({});
+    } catch (error) {
+      throw error;
     }
   }
 }
