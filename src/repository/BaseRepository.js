@@ -30,7 +30,7 @@ class BaseRepository {
    */
   static async findByField(Model, field, value) {
     try {
-      return Model.find({[field] : value})
+      return Model.findOne({[field] : value})
     } catch (error) {
       throw error
     }
@@ -53,7 +53,7 @@ class BaseRepository {
   }
 
   /**
-   * @description finda a document by id
+   * @description finds a document by id
    *
    * @param {object} Model
    * @param {string} id
@@ -63,6 +63,22 @@ class BaseRepository {
   static async findById(Model, id) {
     try {
       return Model.findById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @description deletes a document by ID
+   *
+   * @param {object} Model
+   * @param {string} id
+   *
+   * @returns {*}
+   */
+  static async delete(Model, id) {
+    try {
+      return Model.findByIdAndRemove(id);
     } catch (error) {
       throw error;
     }

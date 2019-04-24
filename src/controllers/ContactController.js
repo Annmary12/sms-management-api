@@ -68,6 +68,38 @@ class ContactController {
       return res.status(500).json({ message: 'contact not found' });
     }
   }
+
+  /**
+   * @description deletes a contact
+   *
+   * @param {object} req  request object
+   * @param {object} res response object
+   *
+   * @returns {json} status code and message
+   */
+  static async deleteUser(req, res) {
+    try {
+      const { id } = req.body;
+      let message;
+      const checkUserExist = await BaseRepository.findByField(Contact, '_id', id);
+
+      if (checkUserExist) {
+        const data = await BaseRepository.delete(Contact, id);
+        message = {
+          message: 'contact deleted successfully',
+          data
+        };
+      } else {
+        message = 'contact does not exist';
+      }
+
+      return res.status(200).json({
+        message
+      })
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
 }
 
 export default ContactController;

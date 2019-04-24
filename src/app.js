@@ -22,7 +22,7 @@ app.use('/api/v1', routes);
 // setup default route
 app.use('*', (req, res, next) => {
   res.status(404).json({
-    message: 'Invalid Route!!!'
+    error: 'Route doesn\'t exist'
   });
   next();
 });
