@@ -9,6 +9,6 @@ route.get('/', (req, res) => {
 })
 
 route.use('/contacts', contactRoutes);
-// route.use('/sms', messageRoutes);
+route.use('/message', messageRoutes);
 
 export default route;

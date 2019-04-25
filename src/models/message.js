@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
 const messageSchema = new Schema({
-  receiver: {
+  receiverId: {
     type: Schema.Types.ObjectId,
     ref: 'contact'
   },
-  sender: {
+  senderId: {
     type: Schema.Types.ObjectId,
     ref: 'contact'
   },
@@ -14,8 +14,8 @@ const messageSchema = new Schema({
     required: true
   },
   status: {
-    type: Schema.Types.ObjectId,
-    ref: 'status'
+    type: String,
+    default: false,
   }
 }, {
   timestamps: {
