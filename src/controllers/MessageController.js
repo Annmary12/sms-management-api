@@ -7,6 +7,14 @@ import BaseRepository from '../repository/BaseRepository';
  * @class MessageController
  */
 class MessageController {
+  /**
+   * @description send message to a contact
+   *
+   * @param {req} req  equest object
+   * @param {res} res response object
+   *
+   * @returns {json} message and status code
+   */
   static async send(req, res) {
     try {
       const sender = req.user;
@@ -24,7 +32,7 @@ class MessageController {
         receiverId: receiver._id,
         senderId: sender._id,
       }
-      const data = await BaseRepository.create(Message, options);
+      await BaseRepository.create(Message, options);
 
       res.status(200).json({
         message: 'message sent successfully',
