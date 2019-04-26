@@ -97,6 +97,14 @@ class MessageController {
     }
   }
 
+  /**
+   * @description gets all received message/s
+   *
+   * @param {object} req request object
+   * @param {*} res response object
+   *
+   * @returns {json} returns json with message and status of the message
+   */
   static async getRecieved(req, res) {
     try {
       const user = req.user;
