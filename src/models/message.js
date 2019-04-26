@@ -13,7 +13,7 @@ const messageSchema = new Schema({
     type: String,
     required: true
   },
-  status: {
+  read: {
     type: String,
     default: false,
   }

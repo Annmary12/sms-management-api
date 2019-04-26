@@ -24,7 +24,7 @@ class MessageController {
       if (!receiver)
         return res.status(400).json({ message: 'Contact not found' });
 
-      if (sender._id === receiver._id)
+      if (sender._id == receiver._id)
         return res.status(400).json({message: 'You can\'t send a message to your self'});
 
       const options = {
@@ -39,6 +39,21 @@ class MessageController {
       })
     } catch (error) {
       res.status(500).json({error});
+    }
+  }
+
+  static async readOne(req, res) {
+    try {
+      const { messageId } = req.params;
+      const user = req.user;
+
+      const message = await BaseRepository.findById(Message, messageId);
+
+      if (!message || user._id == message.receiverId)
+        return res.status(400).json({ message: 'Message not found' });
+
+    } catch (error) {
+
     }
   }
 }
