@@ -77,12 +77,13 @@ class MessageController {
     try {
       const user = req.user;
       const messages = await BaseRepository.findByField(Message, 'senderId', user._id);
-      if (messages.length < 0)
-        return res.status(404).json({ message: 'Message not found!'})
+
+      if (messages.length <= 0)
+        return res.status(404).json({ message: 'Message not found!'});
 
       res.status(200).json({
         messages
-      })
+      });
     } catch (error) {
       res.status(500).json({error});
     }
