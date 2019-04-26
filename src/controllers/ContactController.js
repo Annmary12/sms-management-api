@@ -81,7 +81,7 @@ class ContactController {
     try {
       const { id } = req.body;
       let message;
-      const checkUserExist = await BaseRepository.findByField(Contact, '_id', id);
+      const checkUserExist = await BaseRepository.findOneByField(Contact, '_id', id);
 
       if (checkUserExist) {
         const data = await BaseRepository.delete(Contact, id);

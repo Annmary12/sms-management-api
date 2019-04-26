@@ -19,6 +19,13 @@ class BaseRepository {
     }
   }
 
+  static async findByField(Model, field, value) {
+    try {
+      return Model.find({[field] : value})
+    } catch (error) {
+      throw error
+    }
+  }
   /**
    * @description find a document by field
    *
@@ -28,7 +35,7 @@ class BaseRepository {
    *
    * @returns {Document} returns an array of object
    */
-  static async findByField(Model, field, value) {
+  static async findOneByField(Model, field, value) {
     try {
       return Model.findOne({[field] : value})
     } catch (error) {

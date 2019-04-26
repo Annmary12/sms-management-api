@@ -19,10 +19,10 @@ class MessageController {
     try {
       const sender = req.user;
       const { phoneNumber, message } = req.body;
-      const receiver = await BaseRepository.findByField(Contact, 'phoneNumber', phoneNumber);
+      const receiver = await BaseRepository.findOneByField(Contact, 'phoneNumber', phoneNumber);
 
       if (!receiver)
-        return res.status(400).json({ message: 'Contact not found' });
+        return res.status(404).json({ message: 'Contact not found!' });
 
       if (sender._id == receiver._id)
         return res.status(400).json({message: 'You can\'t send a message to your self'});
@@ -57,7 +57,7 @@ class MessageController {
       const message = await BaseRepository.findById(Message, messageId);
 
       if (!message || user._id != message.receiverId)
-        return res.status(400).json({ message: 'Message not found' });
+        return res.status(404).json({ message: 'Message not found!' });
 
       if (message.read == 'true')
         return res.status(200).json({ message })
@@ -68,6 +68,21 @@ class MessageController {
         updatedMessage
       });
 
+    } catch (error) {
+      res.status(500).json({error});
+    }
+  }
+
+  static async getSent(req, res) {
+    try {
+      const user = req.user;
+      const messages = await BaseRepository.findByField(Message, 'senderId', user._id);
+      if (messages.length < 0)
+        return res.status(404).json({ message: 'Message not found!'})
+
+      res.status(200).json({
+        messages
+      })
     } catch (error) {
       res.status(500).json({error});
     }
