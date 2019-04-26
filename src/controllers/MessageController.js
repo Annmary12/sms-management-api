@@ -49,11 +49,20 @@ class MessageController {
 
       const message = await BaseRepository.findById(Message, messageId);
 
-      if (!message || user._id == message.receiverId)
+      if (!message || user._id != message.receiverId)
         return res.status(400).json({ message: 'Message not found' });
 
-    } catch (error) {
+      if (message.read == 'true')
+        return res.status(200).json({ message })
 
+      const updatedMessage = await BaseRepository.update(Message, message._id, { read: true });
+
+      res.status(200).json({
+        updatedMessage
+      });
+
+    } catch (error) {
+      res.status(500).json({error});
     }
   }
 }

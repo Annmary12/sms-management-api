@@ -86,7 +86,7 @@ class BaseRepository {
 
   static async update(Model, id, options) {
     try {
-      return Model.updateOne({ _id: id }, options);
+      return Model.findOneAndUpdate({ _id: id }, options, { new: true });
     } catch (error) {
       throw error;
     }

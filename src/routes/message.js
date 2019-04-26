@@ -3,7 +3,7 @@ import MessageController from '../controllers/MessageController';
 import { hasToken, verifyToken } from '../middleware/auth';
 
 // destructuring methods
-const { send } = MessageController;
+const { send, readOne } = MessageController;
 
 const router = Router();
 
@@ -11,5 +11,6 @@ const router = Router();
 router.use('/', hasToken, verifyToken);
 
 router.post('/', send);
+router.get('/read/:messageId', readOne);
 
 export default router;
