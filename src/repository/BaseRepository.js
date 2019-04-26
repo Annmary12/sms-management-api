@@ -74,7 +74,7 @@ class BaseRepository {
    * @param {object} Model
    * @param {string} id
    *
-   * @returns {*}
+   * @returns {Document} returns deleted document
    */
   static async delete(Model, id) {
     try {
@@ -84,6 +84,15 @@ class BaseRepository {
     }
   }
 
+  /**
+   * @description updates a document
+   *
+   * @param {object} Model
+   * @param {strring} id
+   * @param {object} options
+   *
+   * @returns {Document} returns the updated document
+   */
   static async update(Model, id, options) {
     try {
       return Model.findOneAndUpdate({ _id: id }, options, { new: true });
