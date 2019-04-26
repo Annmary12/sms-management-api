@@ -19,6 +19,15 @@ class BaseRepository {
     }
   }
 
+  /**
+   * @description find documents by a field
+   *
+   * @param {object} Model
+   * @param {object} field
+   * @param {object} value
+   *
+   * @returns {Document} returns an array of object
+   */
   static async findByField(Model, field, value) {
     try {
       return Model.find({[field] : value})
@@ -26,6 +35,7 @@ class BaseRepository {
       throw error
     }
   }
+
   /**
    * @description find a document by field
    *
@@ -33,7 +43,7 @@ class BaseRepository {
    * @param {object} field
    * @param {object} value
    *
-   * @returns {Document} returns an array of object
+   * @returns {Document} returns an object
    */
   static async findOneByField(Model, field, value) {
     try {

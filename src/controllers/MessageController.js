@@ -73,6 +73,14 @@ class MessageController {
     }
   }
 
+  /**
+   * @description get all sent messages
+   *
+   * @param {object} req request object
+   * @param {object} res response object
+   *
+   * @returns {json} returns json with message and status of the message
+   */
   static async getSent(req, res) {
     try {
       const user = req.user;
