@@ -13,7 +13,7 @@ class MessageController {
    * @param {req} req  equest object
    * @param {res} res response object
    *
-   * @returns {json} message and status code
+   * @returns {json} returns json with message and status of the message
    */
   static async send(req, res) {
     try {
@@ -42,11 +42,18 @@ class MessageController {
     }
   }
 
+  /**
+   * @description reads one message
+   *
+   * @param {object} req  request object
+   * @param {object} res response object
+   *
+   * @returns {json} returns json with message and status of the message
+   */
   static async readOne(req, res) {
     try {
       const { messageId } = req.params;
       const user = req.user;
-
       const message = await BaseRepository.findById(Message, messageId);
 
       if (!message || user._id != message.receiverId)
