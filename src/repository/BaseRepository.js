@@ -83,6 +83,14 @@ class BaseRepository {
       throw error;
     }
   }
+
+  static async update(Model, id, options) {
+    try {
+      return Model.updateOne({ _id: id }, options);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default BaseRepository;
