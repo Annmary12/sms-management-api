@@ -58,12 +58,13 @@ class BaseRepository {
    *
    * @param {object} Model
    * @param {object} options
+   * @param {object} query
    *
    * @returns {Document} returns an array of object
    */
-  static async findAll(Model, options) {
+  static async findAll(Model, query, options) {
     try {
-      return Model.paginate({}, options);
+      return Model.paginate(query, options);
     } catch (error) {
       throw error;
     }

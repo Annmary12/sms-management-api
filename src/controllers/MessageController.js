@@ -120,6 +120,30 @@ class MessageController {
       res.status(500).json({error});
     }
   }
+
+  static async getAll(req, res) {
+    try {
+      const user = req.user;
+      const options = {
+        page: req.query.page ? Number(req.query.page) : 1,
+        limit: 10
+      };
+      const query = {
+        receiverId: user._id,
+        senderId: user._id
+      };
+      const messages = await BaseRepository.findAll(Message, query, options);
+
+      if (messages.length <= 0)
+        return res.status(404).json({ message: 'Message not found!'});
+
+      res.status(200).json({
+        messages
+      });
+    } catch (error) {
+      res.status(500).json({error});
+    }
+  }
 }
 
 export default MessageController;

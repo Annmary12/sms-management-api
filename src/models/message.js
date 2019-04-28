@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 
 const messageSchema = new Schema({
   receiverId: {
@@ -23,6 +24,9 @@ const messageSchema = new Schema({
     updatedAt: 'updated_at'
   }
 });
+
+// mongoose pagination plugin
+messageSchema.plugin(mongoosePaginate);
 
 const Message = mongoose.model('message', messageSchema);
 

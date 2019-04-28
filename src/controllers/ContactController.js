@@ -42,7 +42,7 @@ class ContactController {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: 10
       }
-      const data = await BaseRepository.findAll(Contact, options);
+      const data = await BaseRepository.findAll(Contact, {}, options);
 
       return res.status(200).json(data);
     } catch (error) {

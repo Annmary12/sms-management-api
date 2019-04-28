@@ -13,6 +13,6 @@ router.use('/', hasToken, verifyToken);
 router.post('/', send);
 router.get('/read/:messageId', readOne);
 router.get('/sent', getSent);
-router.get('/received', getRecieved);
+router.get('/recieved', getRecieved);
 
 export default router;
