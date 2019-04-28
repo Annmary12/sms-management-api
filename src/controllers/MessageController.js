@@ -101,7 +101,7 @@ class MessageController {
    * @description gets all received message/s
    *
    * @param {object} req request object
-   * @param {*} res response object
+   * @param {object} res response object
    *
    * @returns {json} returns json with message and status of the message
    */
@@ -125,7 +125,7 @@ class MessageController {
    * @description gets all unread message/s
    *
    * @param {object} req request object
-   * @param {*} res response object
+   * @param {object} res response object
    *
    * @returns {json} returns json with message and status of the message
    */
@@ -139,6 +139,38 @@ class MessageController {
       const query = {
         receiverId: user._id,
         status: false
+      };
+      const messages = await BaseRepository.findAll(Message, query, options);
+
+      if (messages.length <= 0)
+        return res.status(404).json({ message: 'Message not found!'});
+
+      res.status(200).json({
+        messages
+      });
+    } catch (error) {
+      res.status(500).json({error});
+    }
+  }
+
+  /**
+   * @description gets all read message/s
+   *
+   * @param {object} req request object
+   * @param {object} res response object
+   *
+   * @returns {json} returns json with message and status of the message
+   */
+  static async getRead(req, res) {
+    try {
+      const user = req.user;
+      const options = {
+        page: req.query.page ? Number(req.query.page) : 1,
+        limit: 10
+      };
+      const query = {
+        receiverId: user._id,
+        status: true
       };
       const messages = await BaseRepository.findAll(Message, query, options);
 
