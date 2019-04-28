@@ -12,6 +12,7 @@ const router = Router();
 
 router.post('/', contactInputValidation, checkContactExist, create);
 
+
 // add middleware to verify token
 router.use('/', hasToken, verifyToken);
 

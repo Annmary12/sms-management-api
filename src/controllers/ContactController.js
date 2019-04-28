@@ -29,6 +29,30 @@ class ContactController {
   }
 
   /**
+   * @description sign's in a user
+   *
+   * @param {object} req request object
+   * @param {object} res response object
+   *
+   * @returns {json} status code and message
+   */
+  static async signIn(req, res) {
+    try {
+      const { phoneNumber } = req.body;
+      const user = await BaseRepository.findOneByField(Contact, 'phoneNumber', phoneNumber);
+
+      if (!user)
+        return res.status(400).json({ message: 'contact not found' });
+
+      const token = await generateToken({ _id: user._id, name: user.name });
+
+      return  res.status(201).json({user, token});
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  /**
    * @description  get all contact
    *
    * @param {object} req request object
