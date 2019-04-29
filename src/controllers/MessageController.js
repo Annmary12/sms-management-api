@@ -201,8 +201,7 @@ class MessageController {
         limit: 10
       };
       const query = {
-        receiverId: user._id,
-        senderId: user._id
+        $or: [{receiverId: user._id}, {senderId: user._id}]
       };
       const messages = await BaseRepository.findAll(Message, query, options);
 
