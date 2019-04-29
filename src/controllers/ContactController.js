@@ -1,4 +1,5 @@
 import Contact from '../models/contact';
+import Message from '../models/message';
 import BaseRepository from '../repository/BaseRepository';
 import { generateToken } from '../utils/auth';
 
@@ -107,14 +108,17 @@ class ContactController {
       const checkUserExist = await BaseRepository.findOneByField(Contact, '_id', id);
 
       if (!checkUserExist)
-        return res.status(400).json({ message: 'contact does not exist'})
+        return res.status(400).json({ message: 'Contact does not exist'})
 
-        const data = await BaseRepository.delete(Contact, id);
-        const deletedMessage = await BaseRepository.delete();
+        const query = {
+          $or: [{receiverId: checkUserExist._id}, {senderId: checkUserExist._id}]
+        };
+
+        await BaseRepository.delete(Contact, id);
+        await BaseRepository.deleteMany(Message, query);
 
         res.status(200).json({
-          message: 'contact deleted successfully',
-          data
+          message: 'Contact deleted successfully',
         });
     } catch (error) {
       return res.status(500).json(error);

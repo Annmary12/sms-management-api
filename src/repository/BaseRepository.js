@@ -110,7 +110,7 @@ class BaseRepository {
    *
    * @returns {Document} returns deleted documents
    */
-  static async delete(Model, query) {
+  static async deleteMany(Model, query) {
     try {
       return Model.deleteMany(query);
     } catch (error) {
