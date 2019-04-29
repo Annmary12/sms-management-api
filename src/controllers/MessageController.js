@@ -168,8 +168,7 @@ class MessageController {
         limit: 10
       };
       const query = {
-        receiverId: user._id,
-        status: true
+        $and: [{receiverId: user._id}, {read: true}]
       };
       const messages = await BaseRepository.findAll(Message, query, options);
 
