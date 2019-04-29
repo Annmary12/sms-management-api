@@ -103,6 +103,22 @@ class BaseRepository {
   }
 
   /**
+   * @description deletes many documents
+   *
+   * @param {object} Model
+   * @param {object} query
+   *
+   * @returns {Document} returns deleted documents
+   */
+  static async delete(Model, query) {
+    try {
+      return Model.deleteMany(query);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * @description updates a document
    *
    * @param {object} Model

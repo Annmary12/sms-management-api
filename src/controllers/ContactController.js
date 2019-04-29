@@ -104,22 +104,18 @@ class ContactController {
   static async deleteUser(req, res) {
     try {
       const { id } = req.body;
-      let message;
       const checkUserExist = await BaseRepository.findOneByField(Contact, '_id', id);
 
-      if (checkUserExist) {
+      if (!checkUserExist)
+        return res.status(400).json({ message: 'contact does not exist'})
+
         const data = await BaseRepository.delete(Contact, id);
-        message = {
+        const deletedMessage = await BaseRepository.delete();
+
+        res.status(200).json({
           message: 'contact deleted successfully',
           data
-        };
-      } else {
-        message = 'contact does not exist';
-      }
-
-      return res.status(200).json({
-        message
-      })
+        });
     } catch (error) {
       return res.status(500).json(error);
     }
