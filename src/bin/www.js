@@ -20,3 +20,5 @@ mongoose.connect(connectionUrl, {
 app.listen(port, () => {
     console.log(`Listening at :${port}...`);
 });
+
+export default app;
