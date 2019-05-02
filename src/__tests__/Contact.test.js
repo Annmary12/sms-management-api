@@ -143,6 +143,30 @@ describe('controllers : Contact', () => {
         done();
       })
     })
+  });
+
+  describe('deleteContact() function', () => {
+    it('should check if contact exist', (done) => {
+      request.delete(`${BASE_URL}/contacts/`)
+      .set('Authorization', token)
+      .send({ id: 'hfLjj2903030' })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('Contact does not exist');
+        done();
+      });
+    })
+
+    it('should delete a contact', (done) => {
+      request.delete(`${BASE_URL}/contacts/`)
+      .set('Authorization', token)
+      .send({ id: getUser._id })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Contact deleted successfully');
+        done();
+      });
+    })
   })
 
   after((done) => {
