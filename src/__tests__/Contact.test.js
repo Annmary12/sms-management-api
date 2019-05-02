@@ -8,7 +8,8 @@ import { contact } from '../utils/data';
 
 const { expect } = chai;
 const request = supertest(server);
-const BASE_URL = '/api/v1'
+const BASE_URL = '/api/v1';
+let token;
 
 describe('controllers : Contact', () => {
   // before((done) => {
@@ -20,6 +21,7 @@ describe('controllers : Contact', () => {
       request.post(`${BASE_URL}/contacts/`)
       .send(contact)
       .end((err, res) => {
+        token = res.body.token;
         expect(res.statusCode).to.equal(201);
         done();
       })
@@ -88,13 +90,35 @@ describe('controllers : Contact', () => {
       request.post(`${BASE_URL}/contacts/sign-in`)
       .send(user)
       .end((err, res) => {
-        console.log(res.body)
         expect(res.statusCode).to.equal(400);
         expect(res.body.message).to.equal('contact not found');
         done();
       })
     })
+  });
+
+  describe('getAll() function', () => {
+    it('should get all contacts', (done) => {
+      request.get(`${BASE_URL}/contacts/`)
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.docs.length).to.equal(1);
+        done();
+      })
+    });
+
+    it('should not get all contact for non authorized users', (done) => {
+      request.get(`${BASE_URL}/contacts/`)
+      .set('Authorization', '1269ahjekek')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        expect(res.body.message).to.equal('Please, Kindly Signin Again');
+        done();
+      })
+    })
   })
+
   after((done) => {
     mongoose.connection.dropDatabase(() => {
       mongoose.connection.close(done);
