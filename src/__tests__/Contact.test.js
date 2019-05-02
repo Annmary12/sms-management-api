@@ -10,6 +10,7 @@ const { expect } = chai;
 const request = supertest(server);
 const BASE_URL = '/api/v1';
 let token;
+let getUser;
 
 describe('controllers : Contact', () => {
   // before((done) => {
@@ -102,6 +103,8 @@ describe('controllers : Contact', () => {
       request.get(`${BASE_URL}/contacts/`)
       .set('Authorization', token)
       .end((err, res) => {
+        getUser = res.body.docs[0];
+
         expect(res.statusCode).to.equal(200);
         expect(res.body.docs.length).to.equal(1);
         done();
@@ -114,6 +117,29 @@ describe('controllers : Contact', () => {
       .end((err, res) => {
         expect(res.statusCode).to.equal(401);
         expect(res.body.message).to.equal('Please, Kindly Signin Again');
+        done();
+      })
+    })
+  });
+
+  describe('getOne() function', () => {
+    it('should get one contact', (done) => {
+      request.get(`${BASE_URL}/contacts/${getUser._id}`)
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.name).to.equal(getUser.name);
+        expect(res.body.phoneNumber).to.equal(getUser.phoneNumber);
+        done();
+      })
+    });
+
+    it('should not get a contact when wrong ID is passes', (done) => {
+      request.get(`${BASE_URL}/contacts/12346789`)
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(500);
+        expect(res.body.message).to.equal('contact not found');
         done();
       })
     })
