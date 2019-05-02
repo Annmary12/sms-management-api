@@ -68,6 +68,33 @@ describe('controllers : Contact', () => {
     });
   });
 
+  describe('signIn() function', () => {
+    it('should sign in a user', (done) => {
+      request.post(`${BASE_URL}/contacts/sign-in`)
+      .send(contact)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.user.name).to.equal(contact.name);
+        expect(res.body.user.phoneNumber).to.equal(Number(contact.phoneNumber));
+        done();
+      })
+    });
+
+    it('should not sign in a user', (done) => {
+      const user = {
+        ...contact,
+        phoneNumber: '0294789000'
+      }
+      request.post(`${BASE_URL}/contacts/sign-in`)
+      .send(user)
+      .end((err, res) => {
+        console.log(res.body)
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('contact not found');
+        done();
+      })
+    })
+  })
   after((done) => {
     mongoose.connection.dropDatabase(() => {
       mongoose.connection.close(done);
