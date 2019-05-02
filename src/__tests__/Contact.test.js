@@ -23,8 +23,50 @@ describe('controllers : Contact', () => {
         expect(res.statusCode).to.equal(201);
         done();
       })
+    });
+
+    it('should return an error that a name filed is required', (done) => {
+      request.post(`${BASE_URL}/contacts/`)
+      .send({
+        name: '',
+        phoneNumber: '098765432145'
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.errors[0]).to.equal('name is required');
+        done();
+      })
     })
-  })
+
+    it('should return an error when a phone number field is not provided', (done) => {
+      request.post(`${BASE_URL}/contacts/`)
+      .send({
+        name: 'Annmary',
+        phoneNumber: ''
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.errors[0]).to.equal('phone number is required');
+        expect(res.body.errors[1]).to.equal('phone number must be an integer');
+        expect(res.body.errors[2]).to.equal('phone number must not exceed 12 digits');
+        done();
+      })
+    });
+
+    it('should return an error when a phone number is not an integer', (done) => {
+      request.post(`${BASE_URL}/contacts/`)
+      .send({
+        name: 'Annmary',
+        phoneNumber: '124fg5'
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.errors[0]).to.equal('phone number must be an integer');
+        expect(res.body.errors[1]).to.equal('phone number must not exceed 12 digits');
+        done();
+      })
+    });
+  });
 
   after((done) => {
     mongoose.connection.dropDatabase(() => {

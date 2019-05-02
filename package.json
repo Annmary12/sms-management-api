@@ -4,11 +4,11 @@
   "description": "SMS MANAGEMENT",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./src/__tests__/*.js --exit --timeout 15000",
+    "test": "nyc --reporter=text mocha --require @babel/register ./src/__tests__/*.js  --exit --timeout 15000",
     "build": "rimraf dist/ && babel src -d dist",
     "start": "npm build && node ./dist/bin/www.js",
     "dev": "nodemon --exec babel-node -- ./src/bin/www.js",
-    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test"
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov"
   },
   "nyc": {
     "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
