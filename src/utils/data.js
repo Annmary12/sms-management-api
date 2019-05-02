@@ -1,6 +1,6 @@
 export const contact = {
   name: 'Annmary Amaka',
-  phoneNumber: '091234367834',
+  phoneNumber: '091134367834',
 }
 
 export const message = {

@@ -7,7 +7,24 @@
     "test": "mocha --require @babel/register ./src/__tests__/*.js --exit --timeout 15000",
     "build": "rimraf dist/ && babel src -d dist",
     "start": "npm build && node ./dist/bin/www.js",
-    "dev": "nodemon --exec babel-node -- ./src/bin/www.js"
+    "dev": "nodemon --exec babel-node -- ./src/bin/www.js",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test"
+  },
+  "nyc": {
+    "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
+    "check-coverage": true,
+    "register": "babel-register",
+    "include": [
+      "**/*.js",
+      "./*.js"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/test/**",
+      "**/coverage/**"
+    ],
+    "reporter": ["lcov", "json", "text", "html"],
+    "all": true
   },
   "repository": {
     "type": "git",
@@ -32,6 +49,7 @@
     "mocha": "^6.1.4",
     "mongoose": "^5.5.2",
     "mongoose-paginate": "^5.0.3",
+    "nyc": "^14.0.0",
     "rimraf": "^2.6.3",
     "supertest": "^4.0.2"
   },
@@ -40,6 +58,7 @@
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.4.3",
-    "babel-plugin-add-module-exports": "^1.0.2"
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "istanbul": "^0.4.5"
   }
 }
