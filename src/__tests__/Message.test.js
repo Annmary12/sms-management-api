@@ -52,6 +52,34 @@ describe('controllers: Message', () => {
         done();
       })
     })
+
+    it('should not send a message to a contact that does not exist', (done) => {
+      request.post(`${BASE_URL}/message/`)
+      .send({
+        phoneNumber: '1264889930',
+        message: 'Did you receive the alert'
+      })
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Contact not found!');
+        done();
+      })
+    })
+
+    it('should not esnt a message to its self', (done) => {
+      request.post(`${BASE_URL}/message/`)
+      .send({
+        phoneNumber: user1.phoneNumber,
+        message: 'Did you receive the alert'
+      })
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('You can\'t send a message to your self');
+        done();
+      })
+    })
   })
 
   after((done) => {
