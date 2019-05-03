@@ -168,10 +168,4 @@ describe('controllers : Contact', () => {
       });
     })
   })
-
-  after((done) => {
-    mongoose.connection.dropDatabase(() => {
-      mongoose.connection.close(done);
-    })
-  })
 })

@@ -14,6 +14,16 @@ const ValidateInputs = {
     req.checkBody('phoneNumber', 'phone number must not exceed 12 digits').isLength({ min: 12, max: 12 });
 
     ErrorHandler(req, res, next)
+  },
+
+  /**
+   * @description validates message inputs
+   */
+  messageInputValidation: (req, res, next) => {
+    req.checkBody('message', 'message is required').trim().notEmpty();
+    req.checkBody('phoneNumber', 'phone number is required').trim().notEmpty();
+
+    ErrorHandler(req, res, next)
   }
 }
 
