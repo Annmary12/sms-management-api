@@ -24,7 +24,12 @@
       "**/coverage/**",
       "**/dist/**"
     ],
-    "reporter": ["lcov", "json", "text", "html"],
+    "reporter": [
+      "lcov",
+      "json",
+      "text",
+      "html"
+    ],
     "all": true
   },
   "repository": {
@@ -52,6 +57,7 @@
     "mongoose-paginate": "^5.0.3",
     "nyc": "^14.0.0",
     "rimraf": "^2.6.3",
+    "sinon": "^7.3.2",
     "supertest": "^4.0.2"
   },
   "devDependencies": {

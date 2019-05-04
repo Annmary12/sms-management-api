@@ -65,21 +65,6 @@ describe('controllers : Contact', () => {
         done();
       })
     });
-
-    it('shoud throw an error', (done) => {
-      const req = {
-        get body() {
-          throw Error();
-        }
-      }
-      request.post(`${BASE_URL}/contacts/`)
-      .send(req)
-      .end((err, res) => {
-        console.log(res.body)
-        expect(res.statusCode).to.equal(400);
-        done();
-      })
-    })
   });
 
   describe('signIn() function', () => {
