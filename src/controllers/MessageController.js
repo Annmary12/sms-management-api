@@ -172,13 +172,13 @@ class MessageController {
       const query = {
         $and: [{receiverId: user._id}, {read: true}]
       };
-      const messages = await BaseRepository.findAll(Message, query, options);
+      const { docs } = await BaseRepository.findAll(Message, query, options);
 
-      if (messages.length <= 0)
+      if (docs.length <= 0)
         return res.status(404).json({ message: 'Message not found!'});
 
       res.status(200).json({
-        messages
+        messages: docs
       });
     } catch (error) {
       res.status(500).json({error});

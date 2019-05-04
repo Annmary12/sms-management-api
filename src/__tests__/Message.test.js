@@ -87,7 +87,6 @@ describe('controllers: Message', () => {
       request.get(`${BASE_URL}/message/unread`)
       .set('Authorization', secondToken)
       .end((err, res) => {
-        console.log(res.body)
         expect(res.statusCode).to.equal(200);
         expect(res.body.messages.length).to.equal(1);
         done();
@@ -98,7 +97,6 @@ describe('controllers: Message', () => {
       request.get(`${BASE_URL}/message/unread`)
       .set('Authorization', firstToken)
       .end((err, res) => {
-        console.log(res.body);
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Message not found!');
         done();
@@ -131,6 +129,30 @@ describe('controllers: Message', () => {
       request.get(`${BASE_URL}/message/read/${message._id}`)
       .set('Authorization', firstToken)
       .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+  })
+
+  describe('getRead() function', () => {
+    it('should get all unread messages', (done) => {
+      request.get(`${BASE_URL}/message/read`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        console.log(res.body)
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.messages.length).to.equal(1);
+        done();
+      })
+    })
+
+    it('should not return messages when there is no unread message', (done) => {
+      request.get(`${BASE_URL}/message/unread`)
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        console.log(res.body);
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Message not found!');
         done();
