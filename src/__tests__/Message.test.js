@@ -82,6 +82,30 @@ describe('controllers: Message', () => {
     })
   })
 
+  describe('getUnread() function', () => {
+    it('should get all unread messages', (done) => {
+      request.get(`${BASE_URL}/message/unread`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        console.log(res.body)
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.messages.length).to.equal(1);
+        done();
+      })
+    })
+
+    it('should not return messages when there is no unread message', (done) => {
+      request.get(`${BASE_URL}/message/unread`)
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        console.log(res.body);
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+  })
+
   describe('readOne() function', () => {
     it('should read one message', (done) => {
       request.get(`${BASE_URL}/message/read/${message._id}`)
