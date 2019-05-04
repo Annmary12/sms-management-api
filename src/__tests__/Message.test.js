@@ -125,9 +125,31 @@ describe('controllers: Message', () => {
       })
     })
 
-    it('should get all messages sent', (done) => {
+    it('should return no message when no message sent', (done) => {
       request.get(`${BASE_URL}/message/sent`)
       .set('Authorization', secondToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+  })
+
+  describe('getRecieved() function', () => {
+    it('should get all recieved message', (done) => {
+      request.get(`${BASE_URL}/message/recieved`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.messages.length).to.equal(1);
+        done();
+      })
+    })
+
+    it('should return no message when no message recieved', (done) => {
+      request.get(`${BASE_URL}/message/recieved`)
+      .set('Authorization', firstToken)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Message not found!');
