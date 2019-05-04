@@ -13,10 +13,6 @@ let token;
 let getUser;
 
 describe('controllers : Contact', () => {
-  // before((done) => {
-  //   mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true, useCreateIndex: true });
-  //   done();
-  // })
   describe('create() function', () => {
     it('should return a new user object and users token', (done) => {
       request.post(`${BASE_URL}/contacts/`)
@@ -69,6 +65,21 @@ describe('controllers : Contact', () => {
         done();
       })
     });
+
+    it('shoud throw an error', (done) => {
+      const req = {
+        get body() {
+          throw Error();
+        }
+      }
+      request.post(`${BASE_URL}/contacts/`)
+      .send(req)
+      .end((err, res) => {
+        console.log(res.body)
+        expect(res.statusCode).to.equal(400);
+        done();
+      })
+    })
   });
 
   describe('signIn() function', () => {

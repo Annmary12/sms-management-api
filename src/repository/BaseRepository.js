@@ -12,11 +12,7 @@ class BaseRepository {
    * @returns {Document} returns a newly created document
    */
   static async create(Model, options) {
-    try {
-      return Model.create(options);
-    } catch(error) {
-      throw error;
-    }
+    return Model.create(options);
   }
 
   /**
@@ -29,11 +25,7 @@ class BaseRepository {
    * @returns {Document} returns an array of object
    */
   static async findByField(Model, field, value) {
-    try {
-      return Model.find({[field] : value})
-    } catch (error) {
-      throw error
-    }
+    return Model.find({[field] : value});
   }
 
   /**
@@ -46,11 +38,7 @@ class BaseRepository {
    * @returns {Document} returns an object
    */
   static async findOneByField(Model, field, value) {
-    try {
-      return Model.findOne({[field] : value})
-    } catch (error) {
-      throw error
-    }
+    return Model.findOne({[field] : value})
   }
 
   /**
@@ -63,11 +51,7 @@ class BaseRepository {
    * @returns {Document} returns an array of object
    */
   static async findAll(Model, query, options) {
-    try {
-      return Model.paginate(query, options);
-    } catch (error) {
-      throw error;
-    }
+    return Model.paginate(query, options);
   }
 
   /**
@@ -79,11 +63,7 @@ class BaseRepository {
    * @returns {Document} returns one document
    */
   static async findById(Model, id) {
-    try {
-      return Model.findById(id);
-    } catch (error) {
-      throw error;
-    }
+    return Model.findById(id);
   }
 
   /**
@@ -95,11 +75,7 @@ class BaseRepository {
    * @returns {Document} returns deleted document
    */
   static async delete(Model, id) {
-    try {
-      return Model.findByIdAndRemove(id);
-    } catch (error) {
-      throw error;
-    }
+    return Model.findByIdAndRemove(id);
   }
 
   /**
@@ -111,11 +87,7 @@ class BaseRepository {
    * @returns {Document} returns deleted documents
    */
   static async deleteMany(Model, query) {
-    try {
-      return Model.deleteMany(query);
-    } catch (error) {
-      throw error;
-    }
+    return Model.deleteMany(query);
   }
 
   /**
@@ -128,11 +100,7 @@ class BaseRepository {
    * @returns {Document} returns the updated document
    */
   static async update(Model, id, options) {
-    try {
-      return Model.findOneAndUpdate({ _id: id }, options, { new: true });
-    } catch (error) {
-      throw error;
-    }
+    return Model.findOneAndUpdate({ _id: id }, options, { new: true });
   }
 }
 

@@ -25,4 +25,13 @@ describe('App Route Test', () => {
       done();
     })
   })
+
+  it('should return an error when a token is not provided', (done) => {
+    request.get(`${BASE_URL}/contacts/`)
+    .end((err, res) => {
+      expect(res.statusCode).to.equal(401);
+      expect(res.body.message).to.equal('Please, Kindly Signin Again');
+      done();
+    })
+  })
 })
