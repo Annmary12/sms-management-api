@@ -114,6 +114,28 @@ describe('controllers: Message', () => {
     })
   })
 
+  describe('getSent() function', () => {
+    it('should get all messages sent', (done) => {
+      request.get(`${BASE_URL}/message/sent`)
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.messages.length).to.equal(1);
+        done();
+      })
+    })
+
+    it('should get all messages sent', (done) => {
+      request.get(`${BASE_URL}/message/sent`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+  })
+
   after((done) => {
     mongoose.connection.dropDatabase(() => {
       mongoose.connection.close(done);
