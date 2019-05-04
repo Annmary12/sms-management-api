@@ -141,7 +141,6 @@ describe('controllers: Message', () => {
       request.get(`${BASE_URL}/message/read`)
       .set('Authorization', secondToken)
       .end((err, res) => {
-        console.log(res.body)
         expect(res.statusCode).to.equal(200);
         expect(res.body.messages.length).to.equal(1);
         done();
@@ -152,7 +151,6 @@ describe('controllers: Message', () => {
       request.get(`${BASE_URL}/message/unread`)
       .set('Authorization', firstToken)
       .end((err, res) => {
-        console.log(res.body);
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Message not found!');
         done();
@@ -196,6 +194,42 @@ describe('controllers: Message', () => {
     it('should return no message when no message recieved', (done) => {
       request.get(`${BASE_URL}/message/recieved`)
       .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+  })
+
+  describe('getAll() function', () => {
+    let thirdToken;
+    before((done) => {
+      request.post(`${BASE_URL}/contacts/`)
+      .send({
+        name: 'Otse',
+        phoneNumber: '123483789087'
+      })
+      .end((err, res) => {
+        thirdToken = res.body.token;
+        expect(res.statusCode).to.equal(201);
+        done();
+      })
+    })
+
+    it('should get all messages', (done) => {
+      request.get(`${BASE_URL}/message/`)
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.messages.length).to.equal(1);
+        done();
+      })
+    })
+
+    it('should return Message not found when there is no message', (done) => {
+      request.get(`${BASE_URL}/message/`)
+      .set('Authorization', thirdToken)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Message not found!');
