@@ -32,10 +32,12 @@ class MessageController {
         receiverId: receiver._id,
         senderId: sender._id,
       }
-      await BaseRepository.create(Message, options);
+      const getmessage = await BaseRepository.create(Message, options);
+      console.log(message);
 
       res.status(200).json({
         message: 'message sent successfully',
+        data: getmessage
       })
     } catch (error) {
       res.status(500).json({error});
@@ -69,7 +71,7 @@ class MessageController {
       });
 
     } catch (error) {
-      res.status(500).json({error});
+      res.status(500).json({message: 'Message not found!'});
     }
   }
 

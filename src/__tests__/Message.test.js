@@ -5,12 +5,11 @@ import mongoose from 'mongoose';
 
 // util
 import { contact } from '../utils/data';
-import Message from '../models/message';
 
 const { expect } = chai;
 const request = supertest(server);
 const BASE_URL = '/api/v1';
-let firstToken, secondToken, user1, user2;
+let firstToken, secondToken, user1, user2, message;
 
 describe('controllers: Message', () => {
   before((done) => {
@@ -47,6 +46,7 @@ describe('controllers: Message', () => {
       })
       .set('Authorization', firstToken)
       .end((err, res) => {
+        message = res.body.data;
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('message sent successfully');
         done();
@@ -67,7 +67,7 @@ describe('controllers: Message', () => {
       })
     })
 
-    it('should not esnt a message to its self', (done) => {
+    it('should not send a message to it\'s self', (done) => {
       request.post(`${BASE_URL}/message/`)
       .send({
         phoneNumber: user1.phoneNumber,
@@ -77,6 +77,38 @@ describe('controllers: Message', () => {
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         expect(res.body.message).to.equal('You can\'t send a message to your self');
+        done();
+      })
+    })
+  })
+
+  describe('readOne() function', () => {
+    it('should read one message', (done) => {
+      request.get(`${BASE_URL}/message/read/${message._id}`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.updatedMessage.read).to.equal('true');
+        done();
+      })
+    })
+
+    it('should not read a message that does not exist', (done) => {
+      request.get(`${BASE_URL}/message/read/0289030394`)
+      .set('Authorization', secondToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(500);
+        expect(res.body.message).to.equal('Message not found!');
+        done();
+      })
+    })
+
+    it('should not read message that was not sent to the user', (done) => {
+      request.get(`${BASE_URL}/message/read/${message._id}`)
+      .set('Authorization', firstToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Message not found!');
         done();
       })
     })
