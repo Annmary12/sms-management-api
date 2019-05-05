@@ -8,7 +8,7 @@
     "build": "rimraf dist/ && babel src -d dist",
     "start": "npm build && node ./dist/bin/www.js",
     "dev": "nodemon --exec babel-node -- ./src/bin/www.js",
-    "coverage": "nyc --reporter=lcov --reporter=text-lcov"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
     "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
@@ -48,6 +48,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
+    "coveralls": "^3.0.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
