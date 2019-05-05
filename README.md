@@ -33,7 +33,7 @@ SMS MANAGEMENT is a API the enables users to create contact, send, recieve, read
     ├── __test__
     |   └── App.test.js
     |   └── Contact.test.js
-    |   └── Message.js
+    |   └── Message.test.js
     ├── bin
     │   └── www.js
     ├── controllers
