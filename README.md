@@ -89,7 +89,11 @@ To get the app up and running (and really see if it worked), run:
 > $ npm test
 ```
 
-**NOTE:**: Create a `.env` following the `.env.example` configuration
+**NOTE:** Create a `.env` following the `.env.example` configuration
+
+## Link to the documentation
+
+[Docs](https://documenter.getpostman.com/view/3526442/S1Ltzorn#475803ff-9fc9-459d-96a9-37b4262f38cf)
 
 ## API Endpoints
 
