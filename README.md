@@ -26,6 +26,39 @@ SMS MANAGEMENT is a API the enables users to create contact, send, recieve, read
 * Users can get both sent and recieved messages
 * You can delete a user which will delete messages the user sent and recieved.
 
+## Project Structure
+
+```
+├── src/
+    ├── __test__
+    |   └── App.test.js
+    |   └── Contact.test.js
+    |   └── Message.js
+    ├── bin
+    │   └── www.js
+    ├── controllers
+    │   └── ContactController.js
+    |   └── MessageController.js
+    ├── middlewares
+    |   └── auth.js
+    |   └── checkContact.js
+    │   └── validateInput.js
+    ├── models
+    │   └── Contact.js
+    |   └── Message.js
+    ├── repository
+    │   └── BaseRepository.js
+    ├── routes
+    │   └── contact.js
+    │   └── index.js
+    │   └── message.js
+    ├── utils
+    │   └── auth.js
+    │   └── data.js
+    │   └── errorHandler.js
+    ├── app.js
+```
+
 ## Setup
 
 * Clone the project
